@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto: Clasificación Perros vs Gatos</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 20px 0 10px;
+        }
+        
+        .team-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .member-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            transition: transform 0.3s;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-name {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .member-contribution {
+            color: var(--success);
+            font-size: 0.9rem;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            color: var(--secondary);
+            font-size: 1.5rem;
+        }
+        
+        .highlight {
+            background-color: #e8f4fc;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin: 10px 0;
+        }
+        
+        .conclusion-section {
+            background: linear-gradient(135deg, var(--primary), #34495e);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .conclusion-section h2 {
+            color: white;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .repo-link {
+            display: inline-block;
+            background-color: var(--success);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+        
+        .repo-link:hover {
+            background-color: #27ae60;
+        }
+        
+        .image-placeholder {
+            background-color: #e0e0e0;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            margin: 15px 0;
+            color: #777;
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Proyecto: Clasificación Perros vs Gatos</h1>
+            <p>Implementación de un clasificador binario utilizando regresión logística</p>
+        </header>
+        
+        <section>
+            <h2>Integrantes del Equipo</h2>
+            <div class="team-section">
+                <div class="member-card">
+                    <div class="member-name">Saldivar Zamora, Nahun Jose</div>
+                    <div class="member-contribution">Contribución: 100%</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-name">Núñez Enriquez Axel Rolando</div>
+                    <div class="member-contribution">Contribución: 100%</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-name">Huaman Peña Steve Yunior</div>
+                    <div class="member-contribution">Contribución: 100%</div>
+                </div>
+                <div class="member-card">
+                    <div class="member-name">Quispirroca Benitez Daniel Benjamin</div>
+                    <div class="member-contribution">Contribución: 100%</div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>1. Introducción y Contexto</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🎯</span> Propósito del Proyecto</h3>
+                    <p>Esta actividad representa un ejercicio fundamental en el ámbito del machine learning aplicado a la visión por computadora. El objetivo central fue implementar un clasificador binario utilizando regresión logística, uno de los algoritmos más básicos pero importantes en el aprendizaje supervisado.</p>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">📚</span> Relevancia Educativa</h3>
+                    <p>La actividad fue diseñada para que los estudiantes comprendan:</p>
+                    <ul>
+                        <li>El proceso completo de un proyecto de ML</li>
+                        <li>Las limitaciones de los modelos lineales en problemas complejos</li>
+                        <li>La importancia del pre-procesamiento de datos</li>
+                        <li>La interpretación de métricas de evaluación</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>2. Fundamentos Teóricos</h2>
+            <div class="content-grid">
+                <div class="card">
+                    <h3><span class="card-icon">📊</span> Regresión Logística</h3>
+                    <p><strong>Definición:</strong> La regresión logística es un algoritmo de clasificación que modela la probabilidad de que una instancia pertenezca a una clase particular utilizando la función sigmoide.</p>
+                    <div class="highlight">
+                        <p><strong>Características:</strong></p>
+                        <ul>
+                            <li>Función de hipótesis sigmoide</li>
+                            <li>Frontera de decisión: Lineal en el espacio de características</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">🖼️</span> Clasificación de Imágenes</h3>
+                    <p><strong>Desafío principal:</strong> Las imágenes son datos de alta dimensionalidad con correlaciones espaciales complejas que los modelos lineales no pueden capturar eficientemente.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>3. Metodología Detallada</h2>
+            
+            <h3>3.1 Conjunto de Datos</h3>
+            <div class="card">
+                <p><strong>Origen:</strong> Kaggle "Dogs vs. Cats"</p>
+                <p><strong>Composición original:</strong> 24,998 imágenes (12,499 perros, 12,499 gatos)</p>
+                <p><strong>Subconjunto utilizado:</strong></p>
+                <ul>
+                    <li>Entrenamiento: 2,000 imágenes (1,000 perros, 1,000 gatos)</li>
+                    <li>Prueba: 500 imágenes (250 perros, 250 gatos)</li>
+                </ul>
+            </div>
+            
+            <h3>3.2 Preprocesamiento de Imágenes</h3>
+            <div class="content-grid">
+                <div class="card">
+                    <h3><span class="card-icon">🔄</span> Pipeline de Pre-procesamiento</h3>
+                    <div class="code-block">
+# Crear generadores de datos con aumento de datos
+train_datagen = tf.keras.preprocessing.image.ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest'
+)
+                    </div>
+                    <p><strong>Impacto del data augmentation:</strong></p>
+                    <ul>
+                        <li>Incrementa diversidad del dataset</li>
+                        <li>Reduce sobreajuste</li>
+                        <li>Mejora generalización</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">📏</span> Análisis de Dimensionalidad</h3>
+                    <ul>
+                        <li>Tamaño original variable: ≈ 100-500 KB por imagen</li>
+                        <li>Tamaño estandarizado: 64×64×3 = 12,288 píxeles</li>
+                        <li>Tamaño del dataset de entrenamiento: 2,000 × 12,288 = 24,576,000 valores</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>3.3 División de Datos</h3>
+            <div class="card">
+                <p>Separación con train_test_split (80% train, 20% test).</p>
+                <p>Justificación de validación cruzada como opción alternativa.</p>
+            </div>
+            
+            <h3>3.4 Implementación del Modelo</h3>
+            <div class="content-grid">
+                <div class="card">
+                    <h3><span class="card-icon">⚙️</span> Configuración de Regresión Logística</h3>
+                    <ul>
+                        <li>Uso de LogisticRegression de scikit-learn</li>
+                        <li>Parámetros clave: max_iter=1000, solver='lbfgs'</li>
+                        <li>Regularización L2 para evitar sobreajuste</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">🚀</span> Entrenamiento</h3>
+                    <p><strong>Hiperparámetros usados:</strong></p>
+                    <ul>
+                        <li>IMG_HEIGHT=150, IMG_WIDTH=150</li>
+                        <li>BATCH_SIZE=32, EPOCHS=15</li>
+                    </ul>
+                    <p><strong>Callbacks:</strong> ReduceLROnPlateau(factor=0.2, patience=3) para reducir la tasa de aprendizaje cuando la métrica se estanca.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>4. Resultados Detallados</h2>
+            
+            <h3>4.1 Métricas de Evaluación Completas</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Precisión de Entrenamiento</h4>
+                    <div class="metric-value">~65%</div>
+                    <p>Score estabilizado</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Precisión de Validación</h4>
+                    <div class="metric-value">~62%</div>
+                    <p>Score estabilizado</p>
+                </div>
+                <div class="metric-card">
+                    <h4>Gap Train/Val</h4>
+                    <div class="metric-value">~3%</div>
+                    <p>Indica bajo sobreajuste</p>
+                </div>
+            </div>
+            
+            <h3>4.2 Análisis de Errores</h3>
+            <div class="content-grid">
+                <div class="card">
+                    <h3><span class="card-icon">❌</span> Falsos Positivos (Gato → Perro)</h3>
+                    <ul>
+                        <li>Gatos con patrones similares a perros</li>
+                        <li>Imágenes con fondos complejos</li>
+                        <li>Gatos de pelaje oscuro y largo</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><span class="card-icon">❌</span> Falsos Negativos (Perro → Gato)</h3>
+                    <ul>
+                        <li>Perros pequeños o de rasgos felinos</li>
+                        <li>Perros en posiciones atípicas</li>
+                        <li>Imágenes con mala iluminación</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>4.3 Curvas de Aprendizaje</h3>
+            <div class="card">
+                <p><strong>Análisis de la curva:</strong></p>
+                <ul>
+                    <li>Training score: Estabilizado en ~65%</li>
+                    <li>Validation score: Estabilizado en ~62%</li>
+                    <li>Gap pequeño: Indica bajo sobreajuste</li>
+                    <li>Plateau rápido: Sugiere limitación de capacidad del modelo</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="conclusion-section">
+            <h2>Conclusiones y Lecciones Aprendidas</h2>
+            
+            <h3>Conclusiones</h3>
+            <ul>
+                <li>La implementación de la regresión logística permitió comprender los fundamentos de un clasificador lineal aplicado a un problema real de visión por computadora.</li>
+                <li>El preprocesamiento y data augmentation resultaron esenciales para mejorar la diversidad del conjunto de entrenamiento.</li>
+                <li>Las métricas obtenidas (~62–65% de precisión) demuestran que la regresión logística no es un modelo óptimo para clasificación de imágenes.</li>
+                <li>El análisis de errores reveló que los casos mal clasificados se relacionan con similitud visual entre perros y gatos en ciertas condiciones.</li>
+            </ul>
+            
+            <h3>Lecciones Aprendidas</h3>
+            <ul>
+                <li>La regresión logística es valiosa para introducir conceptos, pero no suficiente para problemas de alta dimensionalidad.</li>
+                <li>El data augmentation es indispensable en proyectos de visión artificial.</li>
+                <li>La correcta definición de hiperparámetros y uso de callbacks permite optimizar el entrenamiento.</li>
+                <li>La interpretación de métricas es clave para diagnosticar el comportamiento del modelo.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Repositorio y Documentación</h2>
+            <div class="card">
+                <p>🔗 <strong>Repositorio de GitHub:</strong></p>
+                <a href="https://github.com/Daniel318767/Consolidado-1" class="repo-link" target="_blank">Acceder al Repositorio</a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
